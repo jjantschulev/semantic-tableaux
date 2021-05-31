@@ -1,14 +1,25 @@
 const parse = require("./parser");
 const { formatSequent, formatExpression } = require("./formatter");
-const sequent = "(p ∧ q) → (r ∨ s) ⊢ (p → r) ∨ (q → s)"
+// let sequent = "(p ∧ q) → (r ∨ s) ⊢ (p → r) ∨ (q → s)"
+// let sequent = "not a or b |- a implies b"
+let sequent = "a implies b |- not a or b"
+
+const args = process.argv;
+if (args && args.length >= 3 && args[2] && args[2].length > 0) {
+    sequent = args[2]
+}
 
 isValid(sequent);
 
 function isValid(sequent) {
-    const parsedSequent = parse(sequent);
-    console.log("Input Sequent:", formatSequent(parsedSequent, true));
-    console.log("Attempting to prove validity of sequent via semantic tableaux");
-    return checkValidity(parsedSequent, true);
+    try {
+        const parsedSequent = parse(sequent);
+        console.log("Input Sequent:", formatSequent(parsedSequent, true));
+        console.log("Attempting to prove validity of sequent via semantic tableaux");
+        return checkValidity(parsedSequent, true);
+    } catch (err) {
+        console.log(err.message);
+    }
 }
 
 function checkValidity(parsedSequent, showWorking) {

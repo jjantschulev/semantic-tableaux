@@ -1,5 +1,5 @@
 const tokenRegex = {
-    turnstyle: /^(\|-|⊢)/,
+    turnstyle: /^(\|-|⊢|therefore|so)/,
     comma: /^(,)/,
     implies: /^(->|implies|→)/,
     or: /^(\||or|∨)/,
